@@ -6,11 +6,11 @@ export const missions: MissionDefinition[] = [
     order: 1,
     title: "Mission 1 : Panneau d'affichage",
     shortTitle: 'Panneau',
-    brief: "Tu arrives à ISPA juste avant le cours de B1. Delphine t'aide à vérifier où lire le changement de salle, mais un autre étudiant attend aussi l'information. Repère le bon avis, reformule clairement le changement, confirme le couloir C et rejoins la salle C4 avant 9 h 30.",
+    brief: "Tu arrives à ISPA juste avant le cours de B1. Delphine t'oriente vers le bon panneau, mais il faut encore comprendre le changement, aider un autre étudiant et utiliser les repères du couloir pour atteindre la salle C4 à temps.",
     successSummary: "Tu as trouvé l'avis utile, relayé l'information à un autre étudiant et rejoint la salle C4 à temps.",
     failureSummary: "Tu n'es pas arrivé à temps. Il fallait mieux repérer l'avis utile, confirmer le couloir C et transmettre l'information clairement.",
     locationId: 'ispa-hall',
-    timeLimitSeconds: 145,
+    timeLimitSeconds: 150,
     objectives: [
       {
         id: 'ask-delphine',
@@ -39,13 +39,13 @@ export const missions: MissionDefinition[] = [
       {
         id: 'confirm-corridor',
         kind: 'choose',
-        label: 'Vérifie sur le plan mural comment rejoindre les salles C.',
+        label: "Vérifie sur le plan mural comment lire la répartition des salles C.",
         targetId: 'm1-corridor-map',
       },
       {
         id: 'reach-classroom',
         kind: 'reach',
-        label: 'Rejoins maintenant la salle C4.',
+        label: 'Rejoins maintenant la salle C4 en utilisant les repères du couloir.',
         targetId: 'm1-zone-c4',
       },
     ],
@@ -54,6 +54,7 @@ export const missions: MissionDefinition[] = [
       "Scanner plusieurs avis pour repérer celui qui correspond au groupe, à l'horaire et à la nouvelle salle.",
       'Comprendre un court message institutionnel et en extraire les détails utiles pour se déplacer.',
       "Reformuler simplement un changement de salle pour aider un autre étudiant.",
+      "Utiliser un plan mural et des repères de numérotation pour trouver la bonne salle sans suivre seulement une flèche.",
       'Distinguer une formulation naturelle, précise et polie de formulations trop vagues, trop brusques ou incorrectes.',
     ],
     vocabularyIds: ['salle', 'panneau-affichage', 'couloir', 'changement-salle'],

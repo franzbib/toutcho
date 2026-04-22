@@ -21,18 +21,28 @@ export const signageEntries: SignageDefinition[] = [
     title: 'Plan du hall',
     body: [
       "Panneau d'affichage près de l'escalier.",
-      'Salles A vers la gauche, couloir C au fond à droite.',
-      "En cas de changement, lis d'abord l'avis, puis suis le couloir indiqué.",
+      'Aile B vers la gauche. Aile C à droite après la grande cloison.',
+      "En cas de changement, commence par lire l'avis du jour.",
     ],
   },
   {
     id: 'm1-corridor-range-sign',
     locationId: 'ispa-hall',
-    title: 'Escalier et couloir C',
+    title: 'Escalier et aile C',
     body: [
-      'Couloir C : salles C1 à C6 au fond à droite.',
-      'Salle C4 après la porte vitrée et le panneau bleu.',
-      "L'escalier dessert l'étage, mais pas les salles C de cette mission.",
+      "L'escalier monte à l'étage.",
+      'Pour les salles C du rez-de-chaussée, continue vers la droite.',
+      "Utilise ensuite le plan mural pour lire la répartition des numéros.",
+    ],
+  },
+  {
+    id: 'm1-room-range-sign',
+    locationId: 'ispa-hall',
+    title: 'Repères du couloir C',
+    body: [
+      'Avant la porte vitrée : C1 à C3.',
+      'Après la porte vitrée : C4 à C6.',
+      'La salle C4 est donc dans la seconde partie du couloir.',
     ],
   },
   {

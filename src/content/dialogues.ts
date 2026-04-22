@@ -40,7 +40,7 @@ export const interactions: InteractionDefinition[] = [
     correctOptionId: 'm1-ask-delphine-correct',
     explanation: "Ici, une question simple, polie et précise permet d'obtenir l'information utile tout de suite.",
     retryOnIncorrect: true,
-    successText: "Delphine t'indique le panneau près de l'escalier et te conseille de suivre ensuite les repères du couloir C.",
+    successText: "Delphine t'indique le panneau près de l'escalier et te précise seulement que le cours n'est plus du côté B aujourd'hui.",
     metadata: {
       cefr: 'B1',
       skillType: 'speaking',
@@ -58,8 +58,8 @@ export const interactions: InteractionDefinition[] = [
     options: [
       {
         id: 'm1-read-board-correct',
-        text: 'Groupe B1 - 9 h 30 - cours déplacé de la salle B12 à la salle C4. Accès : couloir C, au fond à droite.',
-        feedback: "Oui, c'est l'avis utile : groupe, horaire, nouvelle salle et repère de couloir sont indiqués.",
+        text: 'Groupe B1 - 9 h 30 - cours déplacé de la salle B12 à la salle C4. Accès : aile C, rez-de-chaussée.',
+        feedback: "Oui, c'est l'avis utile : groupe, horaire, nouvelle salle et nouvelle aile sont indiqués.",
         penaltySeconds: 0,
       },
       {
@@ -76,9 +76,9 @@ export const interactions: InteractionDefinition[] = [
       },
     ],
     correctOptionId: 'm1-read-board-correct',
-    explanation: "Pour lire un avis institutionnel, il faut croiser plusieurs indices : groupe, heure, nouvelle salle et indication de couloir.",
+    explanation: "Pour lire un avis institutionnel, il faut croiser plusieurs indices : groupe, heure, nouvelle salle et nouvelle aile.",
     retryOnIncorrect: true,
-    successText: "L'avis précise que le groupe B1 de 9 h 30 va en salle C4, dans le couloir C, au fond à droite.",
+    successText: "L'avis précise que le groupe B1 de 9 h 30 va en salle C4, dans l'aile C, au rez-de-chaussée.",
     metadata: {
       cefr: 'B1',
       skillType: 'reading',
@@ -93,18 +93,18 @@ export const interactions: InteractionDefinition[] = [
     kind: 'choice',
     context: "Près du panneau d'affichage",
     speaker: 'Rayan',
-    prompt: "Rayan n'a pas encore compris le changement. Quelle reformulation l'aide vraiment ?",
+    prompt: "Rayan hésite encore entre l'aile B et l'aile C. Quelle reformulation l'aide vraiment ?",
     options: [
       {
         id: 'm1-relay-to-student-correct',
-        text: 'Le groupe B1 va en salle C4 à 9 h 30. C\'est dans le couloir C, au fond à droite.',
-        feedback: "Parfait, tu donnes les détails utiles sans parler trop longtemps.",
+        text: "Le groupe B1 va en salle C4 à 9 h 30, dans l'aile C.",
+        feedback: "Parfait, tu donnes l'information utile sans inventer de détail supplémentaire.",
         penaltySeconds: 0,
       },
       {
         id: 'm1-relay-to-student-vague',
-        text: 'Ça a changé, il faut aller plus loin.',
-        feedback: "Le sens général est là, mais il manque les informations concrètes : salle et couloir.",
+        text: 'Ça a changé, il faut aller à droite.',
+        feedback: "C'est encore trop vague : il manque la salle et l'aile.",
         penaltySeconds: 8,
       },
       {
@@ -117,7 +117,7 @@ export const interactions: InteractionDefinition[] = [
     correctOptionId: 'm1-relay-to-student-correct',
     explanation: "Une bonne médiation à ce niveau reste courte, concrète et fidèle à l'avis lu.",
     retryOnIncorrect: true,
-    successText: "Rayan te remercie : il part vers le couloir C avec la bonne information.",
+    successText: "Rayan te remercie. Il te dit aussi qu'il y a un plan mural dans l'aile C pour comprendre les numéros de salle.",
     metadata: {
       cefr: 'B1',
       skillType: 'speaking',
@@ -135,27 +135,27 @@ export const interactions: InteractionDefinition[] = [
     options: [
       {
         id: 'm1-confirm-corridor-correct',
-        text: 'Les salles C1 à C6 sont bien au fond à droite. La salle C4 est après la porte vitrée.',
-        feedback: "Oui, c'est le bon repère pour rejoindre C4 sans perdre de temps.",
+        text: 'Le couloir C est à droite. Après la porte vitrée, on trouve les salles C4 à C6.',
+        feedback: "Oui, c'est le bon repère pour chercher C4 sans te tromper de partie du couloir.",
         penaltySeconds: 0,
       },
       {
         id: 'm1-confirm-corridor-left',
         text: "Les salles C sont à gauche, près de l'entrée.",
-        feedback: "Non : le plan confirme le couloir C au fond à droite.",
+        feedback: "Non : le plan confirme l'aile C à droite.",
         penaltySeconds: 8,
       },
       {
         id: 'm1-confirm-corridor-vague',
         text: 'Je continue tout droit et je verrai bien.',
-        feedback: "C'est trop vague : le plan donne un repère précis que tu peux utiliser.",
+        feedback: "C'est trop vague : le plan donne un repère précis avec la porte vitrée.",
         penaltySeconds: 8,
       },
     ],
     correctOptionId: 'm1-confirm-corridor-correct',
     explanation: "Lire pour s'orienter, c'est retenir le détail pratique qui fait gagner du temps.",
     retryOnIncorrect: true,
-    successText: 'Le plan confirme que C4 se trouve bien dans le couloir C, au fond à droite.',
+    successText: "Le plan confirme que tu dois d'abord atteindre l'aile C, puis passer la porte vitrée pour trouver C4.",
     metadata: {
       cefr: 'B1',
       skillType: 'navigation',
@@ -170,8 +170,8 @@ export const interactions: InteractionDefinition[] = [
     kind: 'info',
     title: 'Mauvaise salle',
     body: [
-      "Ce n'est pas ici. Le panneau indiquait un déplacement vers la salle C4.",
-      'Reprends les repères du couloir C : au fond à droite.',
+      "Ce n'est pas la bonne porte pour le groupe B1.",
+      "Reprends les indices : l'avis parlait de l'aile C, et les salles C4 à C6 sont après la porte vitrée.",
     ],
   },
   {

@@ -69,6 +69,9 @@ export class MissionScene extends Phaser.Scene {
   private overlayState: OverlayState | null = null;
   private finished = false;
   private lowTimeWarningShown = false;
+  private collisionDebugKey?: Phaser.Input.Keyboard.Key;
+  private collisionDebugShapes: Phaser.GameObjects.Rectangle[] = [];
+  private collisionDebugVisible = false;
 
   constructor() {
     super(SCENE_KEYS.mission);
@@ -126,6 +129,7 @@ export class MissionScene extends Phaser.Scene {
 
     this.cameras.main.setBounds(0, 0, this.location.width, this.location.height);
     this.cameras.main.startFollow(this.player.bodyRect, true, 0.08, 0.08);
+    this.setupCollisionDebug();
 
     this.refreshHud();
     this.openInfoOverlay({
@@ -141,6 +145,10 @@ export class MissionScene extends Phaser.Scene {
   update(_: number, delta: number): void {
     if (this.finished) {
       return;
+    }
+
+    if (this.collisionDebugKey && Phaser.Input.Keyboard.JustDown(this.collisionDebugKey)) {
+      this.toggleCollisionDebug();
     }
 
     if (this.overlayState) {
@@ -499,11 +507,75 @@ export class MissionScene extends Phaser.Scene {
     this.objectiveBeacon.hide();
   }
 
+  private setupCollisionDebug(): void {
+    if (!import.meta.env.DEV) {
+      return;
+    }
+
+    const keyboard = this.input.keyboard;
+
+    if (!keyboard) {
+      return;
+    }
+
+    this.collisionDebugKey = keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F8);
+
+    const colliderShapes = this.location.colliders.map((collider) => {
+      const rect = this.add.rectangle(
+        collider.x + collider.width / 2,
+        collider.y + collider.height / 2,
+        collider.width,
+        collider.height,
+        0xd62839,
+        0.18,
+      );
+      rect.setStrokeStyle(2, 0xff4d6d, 0.9);
+      rect.setDepth(40);
+      rect.setVisible(false);
+      return rect;
+    });
+
+    const zoneShapes = this.location.reachZones.map((zone) => {
+      const rect = this.add.rectangle(
+        zone.x + zone.width / 2,
+        zone.y + zone.height / 2,
+        zone.width,
+        zone.height,
+        0x2a9d8f,
+        0.14,
+      );
+      rect.setStrokeStyle(2, 0x2a9d8f, 0.9);
+      rect.setDepth(40);
+      rect.setVisible(false);
+      return rect;
+    });
+
+    this.collisionDebugShapes = [...colliderShapes, ...zoneShapes];
+  }
+
+  private toggleCollisionDebug(): void {
+    this.collisionDebugVisible = !this.collisionDebugVisible;
+    this.collisionDebugShapes.forEach((shape) => {
+      shape.setVisible(this.collisionDebugVisible);
+    });
+  }
+
   private getCurrentTargetPoint(): { x: number; y: number } | null {
     const currentObjective = getCurrentObjective(this.mission, this.runState);
 
     if (!currentObjective) {
       return null;
+    }
+
+    if (this.isMission1FinalNavigationStep()) {
+      if (this.hasEnteredMission1SearchZone()) {
+        return null;
+      }
+
+      return {
+        x: 1292,
+        y: 540,
+      };
     }
 
     const object = this.location.objects.find((candidate) => candidate.id === currentObjective.targetId);
@@ -534,6 +606,10 @@ export class MissionScene extends Phaser.Scene {
       return 'But';
     }
 
+    if (this.isMission1FinalNavigationStep()) {
+      return 'Couloir C';
+    }
+
     const object = this.location.objects.find((candidate) => candidate.id === currentObjective.targetId);
 
     if (object) {
@@ -542,6 +618,14 @@ export class MissionScene extends Phaser.Scene {
 
     const zone = this.location.reachZones.find((candidate) => candidate.id === currentObjective.targetId);
     return zone?.label ?? 'But';
+  }
+
+  private isMission1FinalNavigationStep(): boolean {
+    return this.mission.id === 'hall-notice' && getCurrentObjective(this.mission, this.runState)?.id === 'reach-classroom';
+  }
+
+  private hasEnteredMission1SearchZone(): boolean {
+    return this.player.x >= 1210 && this.player.y <= 620;
   }
 
   private finishMission(success: boolean): void {
