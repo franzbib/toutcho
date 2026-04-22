@@ -8,6 +8,11 @@ export type RectArea = {
   alpha?: number;
   strokeColor?: number;
   strokeWidth?: number;
+  depth?: number;
+  shadowColor?: number;
+  shadowAlpha?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
 };
 
 export type LocationDecoration =
@@ -16,6 +21,12 @@ export type LocationDecoration =
       label?: string;
       labelColor?: string;
       labelSize?: number;
+      labelFontStyle?: string;
+      labelBackgroundColor?: string;
+      labelPaddingX?: number;
+      labelPaddingY?: number;
+      labelOffsetX?: number;
+      labelOffsetY?: number;
     } & RectArea)
   | {
       kind: 'text';
@@ -25,8 +36,12 @@ export type LocationDecoration =
       color?: string;
       fontSize?: number;
       fontStyle?: string;
+      backgroundColor?: string;
+      paddingX?: number;
+      paddingY?: number;
       originX?: number;
       originY?: number;
+      depth?: number;
     }
   | {
       kind: 'circle';
@@ -35,6 +50,9 @@ export type LocationDecoration =
       radius: number;
       fillColor: number;
       alpha?: number;
+      strokeColor?: number;
+      strokeWidth?: number;
+      depth?: number;
     }
   | {
       kind: 'line';
@@ -45,6 +63,7 @@ export type LocationDecoration =
       color: number;
       width: number;
       alpha?: number;
+      depth?: number;
     };
 
 export type WorldObjectKind =

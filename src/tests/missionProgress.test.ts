@@ -5,16 +5,25 @@ import { completeObjective, createMissionRun, getCurrentObjective } from '../sys
 import { createDefaultSaveData, recordMissionOutcome } from '../systems/save/saveStore';
 
 describe('mission progression', () => {
-  test('avance correctement dans les objectifs d’une mission', () => {
+  test("avance correctement dans les objectifs d'une mission", () => {
     const mission = allMissions[0];
     let run = createMissionRun(mission);
 
-    expect(getCurrentObjective(mission, run)?.id).toBe('ask-student');
+    expect(getCurrentObjective(mission, run)?.id).toBe('ask-delphine');
 
-    run = completeObjective(run, 'ask-student');
+    run = completeObjective(run, 'ask-delphine');
+    expect(getCurrentObjective(mission, run)?.id).toBe('inspect-hall-sign');
+
+    run = completeObjective(run, 'inspect-hall-sign');
     expect(getCurrentObjective(mission, run)?.id).toBe('read-board');
 
     run = completeObjective(run, 'read-board');
+    expect(getCurrentObjective(mission, run)?.id).toBe('relay-change');
+
+    run = completeObjective(run, 'relay-change');
+    expect(getCurrentObjective(mission, run)?.id).toBe('confirm-corridor');
+
+    run = completeObjective(run, 'confirm-corridor');
     expect(getCurrentObjective(mission, run)?.id).toBe('reach-classroom');
   });
 
@@ -28,12 +37,14 @@ describe('mission progression', () => {
       timeRemainingSeconds: 64,
       wrongChoiceCount: 1,
       navigationMistakes: 0,
-      firstTryCorrectCount: 2,
+      firstTryCorrectCount: 4,
       interactionAttempts: {
-        'm1-ask-lina': 1,
+        'm1-ask-delphine': 1,
         'm1-read-board': 1,
+        'm1-relay-to-student': 1,
+        'm1-confirm-corridor': 1,
       },
-      solvedInteractionIds: ['m1-ask-lina', 'm1-read-board'],
+      solvedInteractionIds: ['m1-ask-delphine', 'm1-read-board', 'm1-relay-to-student', 'm1-confirm-corridor'],
     }, true);
 
     const nextSave = recordMissionOutcome(saveData, allMissions, outcome);
@@ -44,4 +55,3 @@ describe('mission progression', () => {
     expect(nextSave.missionRecords[mission.id]?.completed).toBe(true);
   });
 });
-

@@ -6,23 +6,41 @@ export const missions: MissionDefinition[] = [
     order: 1,
     title: "Mission 1 : Panneau d'affichage",
     shortTitle: 'Panneau',
-    brief: "Tu arrives à ISPA. Le cours de B1 a changé de salle. Parle à un étudiant, lis le bon avis et rejoins la salle avant le début du cours.",
-    successSummary: "Tu as trouvé la bonne salle à temps et compris l'information utile.",
-    failureSummary: "Le cours a commencé sans toi. Il fallait repérer le bon avis plus vite.",
+    brief: "Tu arrives à ISPA juste avant le cours de B1. Delphine t'aide à vérifier où lire le changement de salle, mais un autre étudiant attend aussi l'information. Repère le bon avis, reformule clairement le changement, confirme le couloir C et rejoins la salle C4 avant 9 h 30.",
+    successSummary: "Tu as trouvé l'avis utile, relayé l'information à un autre étudiant et rejoint la salle C4 à temps.",
+    failureSummary: "Tu n'es pas arrivé à temps. Il fallait mieux repérer l'avis utile, confirmer le couloir C et transmettre l'information clairement.",
     locationId: 'ispa-hall',
-    timeLimitSeconds: 110,
+    timeLimitSeconds: 145,
     objectives: [
       {
-        id: 'ask-student',
+        id: 'ask-delphine',
         kind: 'talk',
-        label: 'Demande à un autre étudiant où vérifier le changement de salle.',
-        targetId: 'm1-student-lina',
+        label: 'Demande à Delphine où vérifier un changement de salle pour le groupe B1.',
+        targetId: 'm1-resource-delphine',
+      },
+      {
+        id: 'inspect-hall-sign',
+        kind: 'inspect',
+        label: "Lis le plan du hall pour confirmer où se trouvent le panneau et le couloir C.",
+        targetId: 'm1-hall-sign',
       },
       {
         id: 'read-board',
         kind: 'inspect',
-        label: "Consulte le bon avis sur le panneau d'affichage.",
+        label: "Repère sur le panneau l'avis qui concerne ton groupe B1 de 9 h 30.",
         targetId: 'm1-board',
+      },
+      {
+        id: 'relay-change',
+        kind: 'talk',
+        label: "Explique clairement à un autre étudiant où le cours B1 a été déplacé.",
+        targetId: 'm1-student-rayan',
+      },
+      {
+        id: 'confirm-corridor',
+        kind: 'choose',
+        label: 'Vérifie sur le plan mural comment rejoindre les salles C.',
+        targetId: 'm1-corridor-map',
       },
       {
         id: 'reach-classroom',
@@ -32,11 +50,13 @@ export const missions: MissionDefinition[] = [
       },
     ],
     learnedPoints: [
-      "Demander un renseignement simplement mais poliment à un autre étudiant.",
-      "Repérer l'information utile sur un panneau institutionnel.",
-      "Comprendre un changement de salle sans se laisser distraire par les autres avis.",
+      'Demander poliment où vérifier une information pratique dans un établissement.',
+      "Scanner plusieurs avis pour repérer celui qui correspond au groupe, à l'horaire et à la nouvelle salle.",
+      'Comprendre un court message institutionnel et en extraire les détails utiles pour se déplacer.',
+      "Reformuler simplement un changement de salle pour aider un autre étudiant.",
+      'Distinguer une formulation naturelle, précise et polie de formulations trop vagues, trop brusques ou incorrectes.',
     ],
-    vocabularyIds: ['salle', 'panneau-affichage', 'premier-etage'],
+    vocabularyIds: ['salle', 'panneau-affichage', 'couloir', 'changement-salle'],
     nextMissionId: 'secretariat-delivery',
   },
   {
@@ -147,4 +167,3 @@ export const missions: MissionDefinition[] = [
     vocabularyIds: ['annexe', 'dossier-bleu', 'confirmer'],
   },
 ];
-

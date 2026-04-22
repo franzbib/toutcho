@@ -1,6 +1,14 @@
 import type Phaser from 'phaser';
 import { createPanel } from '../common/createPanel';
 
+const OVERLAY_DEPTH = 220;
+const PANEL_WIDTH = 1080;
+const PANEL_HEIGHT = 560;
+const PANEL_X = 640;
+const PANEL_Y = 392;
+const LEFT_X = 116;
+const CONTENT_WIDTH = 960;
+
 export type InteractionPanelPayload = {
   title: string;
   speaker?: string;
@@ -11,64 +19,110 @@ export type InteractionPanelPayload = {
 };
 
 export class InteractionPanel {
+  private readonly backdrop: Phaser.GameObjects.Rectangle;
+  private readonly panelShadow: Phaser.GameObjects.Rectangle;
   private readonly panel: Phaser.GameObjects.Rectangle;
+  private readonly headerBand: Phaser.GameObjects.Rectangle;
+  private readonly accentBar: Phaser.GameObjects.Rectangle;
   private readonly titleText: Phaser.GameObjects.Text;
   private readonly speakerText: Phaser.GameObjects.Text;
   private readonly bodyText: Phaser.GameObjects.Text;
-  private readonly optionsText: Phaser.GameObjects.Text;
+  private readonly optionTexts: Phaser.GameObjects.Text[];
   private readonly feedbackText: Phaser.GameObjects.Text;
   private readonly hintText: Phaser.GameObjects.Text;
 
   constructor(scene: Phaser.Scene) {
-    this.panel = createPanel(scene, 640, 605, 1200, 210, 0x10232a, 0.94);
-    this.panel.setScrollFactor(0);
+    this.backdrop = scene.add.rectangle(640, 360, 1280, 720, 0x051219, 0.66);
+    this.backdrop.setScrollFactor(0);
+    this.backdrop.setDepth(OVERLAY_DEPTH);
 
-    this.titleText = scene.add.text(66, 512, '', {
+    this.panelShadow = scene.add.rectangle(PANEL_X + 10, PANEL_Y + 12, PANEL_WIDTH, PANEL_HEIGHT, 0x000000, 0.24);
+    this.panelShadow.setScrollFactor(0);
+    this.panelShadow.setDepth(OVERLAY_DEPTH + 1);
+
+    this.panel = createPanel(scene, PANEL_X, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT, 0x10232a, 0.985);
+    this.panel.setDepth(OVERLAY_DEPTH + 2);
+
+    this.headerBand = scene.add.rectangle(PANEL_X, 130, PANEL_WIDTH, 78, 0x17333a, 0.94);
+    this.headerBand.setScrollFactor(0);
+    this.headerBand.setDepth(OVERLAY_DEPTH + 3);
+
+    this.accentBar = scene.add.rectangle(92, PANEL_Y, 12, PANEL_HEIGHT - 64, 0xf2cc8f, 0.95);
+    this.accentBar.setScrollFactor(0);
+    this.accentBar.setDepth(OVERLAY_DEPTH + 4);
+
+    this.titleText = scene.add.text(LEFT_X, 104, '', {
       fontFamily: 'Aptos, Segoe UI, sans-serif',
-      fontSize: '24px',
-      color: '#9fd0c7',
+      fontSize: '28px',
+      color: '#f8f2e6',
       fontStyle: 'bold',
-    }).setScrollFactor(0);
+      wordWrap: {
+        width: CONTENT_WIDTH,
+        useAdvancedWrap: true,
+      },
+    }).setScrollFactor(0).setDepth(OVERLAY_DEPTH + 5);
 
-    this.speakerText = scene.add.text(66, 544, '', {
+    this.speakerText = scene.add.text(LEFT_X, 146, '', {
       fontFamily: 'Aptos, Segoe UI, sans-serif',
       fontSize: '18px',
       color: '#f2cc8f',
-    }).setScrollFactor(0);
+      fontStyle: 'bold',
+      backgroundColor: '#21424b',
+      padding: {
+        x: 10,
+        y: 5,
+      },
+    }).setScrollFactor(0).setDepth(OVERLAY_DEPTH + 5);
 
-    this.bodyText = scene.add.text(66, 578, '', {
+    this.bodyText = scene.add.text(LEFT_X, 194, '', {
       fontFamily: 'Aptos, Segoe UI, sans-serif',
-      fontSize: '24px',
+      fontSize: '22px',
       color: '#f8f2e6',
       wordWrap: {
-        width: 700,
+        width: CONTENT_WIDTH,
+        useAdvancedWrap: true,
       },
-    }).setScrollFactor(0);
+      lineSpacing: 8,
+    }).setScrollFactor(0).setDepth(OVERLAY_DEPTH + 5);
 
-    this.optionsText = scene.add.text(835, 570, '', {
+    this.optionTexts = [0, 1, 2].map(() => scene.add.text(LEFT_X, 0, '', {
       fontFamily: 'Aptos, Segoe UI, sans-serif',
       fontSize: '20px',
       color: '#f8f2e6',
+      backgroundColor: '#17333a',
       wordWrap: {
-        width: 320,
+        width: CONTENT_WIDTH - 8,
+        useAdvancedWrap: true,
       },
-    }).setScrollFactor(0);
+      padding: {
+        x: 14,
+        y: 10,
+      },
+      lineSpacing: 6,
+    }).setScrollFactor(0).setDepth(OVERLAY_DEPTH + 5));
 
-    this.feedbackText = scene.add.text(66, 676, '', {
+    this.feedbackText = scene.add.text(LEFT_X, 0, '', {
       fontFamily: 'Aptos, Segoe UI, sans-serif',
-      fontSize: '17px',
+      fontSize: '18px',
       color: '#f2cc8f',
       wordWrap: {
-        width: 820,
+        width: CONTENT_WIDTH,
+        useAdvancedWrap: true,
       },
-    }).setScrollFactor(0);
+      lineSpacing: 6,
+    }).setScrollFactor(0).setDepth(OVERLAY_DEPTH + 5);
 
-    this.hintText = scene.add.text(1160, 680, '', {
+    this.hintText = scene.add.text(1128, 0, '', {
       fontFamily: 'Aptos, Segoe UI, sans-serif',
       fontSize: '16px',
-      color: '#f8f2e6',
+      color: '#d7ede8',
       align: 'right',
-    }).setOrigin(1, 0).setScrollFactor(0);
+      backgroundColor: '#21424b',
+      padding: {
+        x: 10,
+        y: 6,
+      },
+    }).setOrigin(1, 0).setScrollFactor(0).setDepth(OVERLAY_DEPTH + 5);
 
     this.hide();
   }
@@ -77,9 +131,48 @@ export class InteractionPanel {
     this.titleText.setText(payload.title);
     this.speakerText.setText(payload.speaker ?? '');
     this.bodyText.setText(payload.body);
-    this.optionsText.setText(payload.options?.map((option, index) => `${index + 1}. ${option}`).join('\n\n') ?? '');
     this.feedbackText.setText(payload.feedback ?? '');
     this.hintText.setText(payload.hint);
+
+    let y = 104;
+    this.titleText.setPosition(LEFT_X, y);
+    y += this.titleText.height + 14;
+
+    if (payload.speaker) {
+      this.speakerText.setPosition(LEFT_X, y);
+      this.speakerText.setVisible(true);
+      y += this.speakerText.height + 18;
+    } else {
+      this.speakerText.setVisible(false);
+    }
+
+    this.bodyText.setPosition(LEFT_X, y);
+    y += this.bodyText.height + 24;
+
+    for (const [index, optionText] of this.optionTexts.entries()) {
+      const option = payload.options?.[index];
+
+      if (!option) {
+        optionText.setText('');
+        optionText.setVisible(false);
+        continue;
+      }
+
+      optionText.setText(`${index + 1}. ${option}`);
+      optionText.setPosition(LEFT_X, y);
+      optionText.setVisible(true);
+      y += optionText.height + 14;
+    }
+
+    if (payload.feedback) {
+      this.feedbackText.setPosition(LEFT_X, y);
+      this.feedbackText.setVisible(true);
+      y += this.feedbackText.height + 18;
+    } else {
+      this.feedbackText.setVisible(false);
+    }
+
+    this.hintText.setPosition(1128, Math.min(598, y));
     this.setVisible(true);
   }
 
@@ -92,12 +185,18 @@ export class InteractionPanel {
   }
 
   private setVisible(visible: boolean): void {
+    this.backdrop.setVisible(visible);
+    this.panelShadow.setVisible(visible);
     this.panel.setVisible(visible);
+    this.headerBand.setVisible(visible);
+    this.accentBar.setVisible(visible);
     this.titleText.setVisible(visible);
-    this.speakerText.setVisible(visible);
+    this.speakerText.setVisible(visible && Boolean(this.speakerText.text));
     this.bodyText.setVisible(visible);
-    this.optionsText.setVisible(visible);
-    this.feedbackText.setVisible(visible);
+    this.optionTexts.forEach((optionText) => {
+      optionText.setVisible(visible && Boolean(optionText.text));
+    });
+    this.feedbackText.setVisible(visible && Boolean(this.feedbackText.text));
     this.hintText.setVisible(visible);
   }
 }

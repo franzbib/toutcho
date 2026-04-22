@@ -146,6 +146,8 @@ export class MissionScene extends Phaser.Scene {
     if (this.overlayState) {
       this.player.freeze();
       this.objectiveBeacon.hide();
+      this.objectiveToast.hide();
+      this.interactionPrompt.setVisible(false);
       this.handleOverlayInput();
       return;
     }
@@ -273,6 +275,7 @@ export class MissionScene extends Phaser.Scene {
       interaction,
     };
 
+    this.prepareOverlayDisplay();
     this.interactionPanel.show({
       title: interaction.context,
       speaker: interaction.speaker,
@@ -355,10 +358,11 @@ export class MissionScene extends Phaser.Scene {
     const shouldComplete = getCurrentObjective(this.mission, this.runState)?.targetId === this.overlayState.objectId;
 
     if (shouldComplete) {
-      this.completeCurrentObjective();
+      this.completeCurrentObjective(false);
     }
 
     this.refreshHud();
+    const nextObjective = getCurrentObjective(this.mission, this.runState);
 
     this.openInfoOverlay({
       title: interaction.context,
@@ -368,6 +372,11 @@ export class MissionScene extends Phaser.Scene {
       onClose: () => {
         if (isMissionComplete(this.mission, this.runState)) {
           this.finishMission(true);
+          return;
+        }
+
+        if (nextObjective) {
+          this.objectiveToast.show(`Objectif : ${nextObjective.label}`, 'success');
         }
       },
     });
@@ -395,6 +404,7 @@ export class MissionScene extends Phaser.Scene {
       ...payload,
     };
 
+    this.prepareOverlayDisplay();
     this.interactionPanel.show({
       title: payload.title,
       speaker: payload.speaker,
@@ -461,7 +471,7 @@ export class MissionScene extends Phaser.Scene {
     });
   }
 
-  private completeCurrentObjective(): void {
+  private completeCurrentObjective(showToast = true): void {
     const previousObjective = getCurrentObjective(this.mission, this.runState);
 
     if (!previousObjective) {
@@ -471,12 +481,22 @@ export class MissionScene extends Phaser.Scene {
     this.runState = completeObjective(this.runState, previousObjective.id);
     const nextObjective = getCurrentObjective(this.mission, this.runState);
 
+    if (!showToast) {
+      return;
+    }
+
     if (nextObjective) {
       this.objectiveToast.show(`Nouvel objectif : ${nextObjective.label}`, 'success');
       return;
     }
 
     this.objectiveToast.show('Tous les objectifs sont validés.', 'success');
+  }
+
+  private prepareOverlayDisplay(): void {
+    this.interactionPrompt.setVisible(false);
+    this.objectiveToast.hide();
+    this.objectiveBeacon.hide();
   }
 
   private getCurrentTargetPoint(): { x: number; y: number } | null {

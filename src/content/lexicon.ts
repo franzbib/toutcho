@@ -25,6 +25,18 @@ export const lexiconEntries: LexiconEntry[] = [
     example: 'La bibliothèque est au premier étage.',
   },
   {
+    id: 'couloir',
+    term: 'couloir',
+    meaning: 'Passage intérieur qui permet de rejoindre plusieurs salles.',
+    example: 'Les salles C sont au fond du couloir C.',
+  },
+  {
+    id: 'changement-salle',
+    term: 'changement de salle',
+    meaning: "Modification du lieu prévu pour un cours ou une activité.",
+    example: "Le panneau annonce un changement de salle pour le groupe B1.",
+  },
+  {
     id: 'attestation-assurance',
     term: "attestation d'assurance",
     meaning: 'Document qui prouve que tu es assuré.',
@@ -79,4 +91,3 @@ export const lexiconEntries: LexiconEntry[] = [
     example: "Vous pouvez me confirmer l'adresse, s'il vous plaît ?",
   },
 ];
-

@@ -16,21 +16,23 @@ export const signageEntries: SignageDefinition[] = [
     ],
   },
   {
-    id: 'm1-direction-sign',
+    id: 'm1-hall-sign',
     locationId: 'ispa-hall',
-    title: 'Orientation',
+    title: 'Plan du hall',
     body: [
-      'Escalier et salles C à droite.',
-      "Panneau d'affichage au fond du hall.",
+      "Panneau d'affichage près de l'escalier.",
+      'Salles A vers la gauche, couloir C au fond à droite.',
+      "En cas de changement, lis d'abord l'avis, puis suis le couloir indiqué.",
     ],
   },
   {
-    id: 'm1-corridor-sign',
+    id: 'm1-corridor-range-sign',
     locationId: 'ispa-hall',
-    title: 'Couloir des salles',
+    title: 'Escalier et couloir C',
     body: [
-      'Salles C1 à C6 au fond à droite.',
-      "En cas de changement, vérifiez d'abord le panneau d'affichage.",
+      'Couloir C : salles C1 à C6 au fond à droite.',
+      'Salle C4 après la porte vitrée et le panneau bleu.',
+      "L'escalier dessert l'étage, mais pas les salles C de cette mission.",
     ],
   },
   {
