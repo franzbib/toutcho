@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Toutcho">
+  <rect width="120" height="120" rx="24" fill="#143642" />
+  <circle cx="60" cy="60" r="34" fill="#f5ecd9" />
+  <path d="M42 46h36v8H64v26h-8V54H42z" fill="#143642" />
+</svg>
+
