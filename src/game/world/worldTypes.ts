@@ -86,6 +86,7 @@ export type WorldObjectDefinition = {
   width: number;
   height: number;
   label: string;
+  showLabel?: boolean;
   prompt: string;
   accentColor?: number;
   interactionId?: string;

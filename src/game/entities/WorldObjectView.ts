@@ -25,11 +25,16 @@ export class WorldObjectView {
     const shadow = scene.add.ellipse(0, definition.height * 0.36, definition.width * 0.62, 16, 0x10232a, 0.16);
     this.mainShape = this.createBaseShape(scene, definition);
     const details = this.createDetails(scene, definition);
-    const label = scene.add.text(0, -definition.height * 0.74, definition.label, LABEL_STYLE);
-    label.setOrigin(0.5);
-    label.setAlign('center');
+    const children: Phaser.GameObjects.GameObject[] = [shadow, this.mainShape, ...details];
 
-    this.container.add([shadow, this.mainShape, ...details, label]);
+    if (definition.showLabel !== false) {
+      const label = scene.add.text(0, -definition.height * 0.74, definition.label, LABEL_STYLE);
+      label.setOrigin(0.5);
+      label.setAlign('center');
+      children.push(label);
+    }
+
+    this.container.add(children);
   }
 
   get x(): number {
