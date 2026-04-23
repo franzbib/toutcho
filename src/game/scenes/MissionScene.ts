@@ -585,7 +585,7 @@ export class MissionScene extends Phaser.Scene {
       }
 
       return {
-        x: 1440,
+        x: 1540,
         y: 560,
       };
     }
@@ -637,7 +637,7 @@ export class MissionScene extends Phaser.Scene {
   }
 
   private hasEnteredMission1SearchZone(): boolean {
-    return this.player.x >= 1420 && this.player.y >= 450 && this.player.y <= 850;
+    return this.player.x >= 1500 && this.player.y >= 450 && this.player.y <= 850;
   }
 
   private isPlayerInsideReachZone(zone: { x: number; y: number; width: number; height: number }): boolean {

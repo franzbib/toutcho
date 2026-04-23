@@ -135,7 +135,7 @@ export const interactions: InteractionDefinition[] = [
     options: [
       {
         id: 'm1-confirm-corridor-correct',
-        text: 'Le couloir C est à droite. Les portes C2, C4 puis C6 se suivent de gauche à droite.',
+        text: 'Le couloir C est à droite. Les trois portes du couloir sont C2, C4 puis C6 de gauche à droite.',
         feedback: "Oui, c'est le bon repère pour chercher C4 sans te tromper de partie du couloir.",
         penaltySeconds: 0,
       },
@@ -171,7 +171,7 @@ export const interactions: InteractionDefinition[] = [
     title: 'Mauvaise salle',
     body: [
       "Ce n'est pas la bonne porte pour le groupe B1.",
-      "Reprends les indices : dans l'aile C, les portes C2, C4 puis C6 se suivent de gauche à droite. C4 est celle du milieu.",
+      "Reprends les indices : dans l'aile C, les trois portes du couloir sont C2, C4 puis C6 de gauche à droite. C4 est celle du milieu.",
     ],
   },
   {
