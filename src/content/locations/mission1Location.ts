@@ -39,6 +39,7 @@ export const mission1Location: LocationDefinition = {
     { kind: 'text', x: 846, y: 176, text: "Panneau d'aujourd'hui", color: '#194b55', fontSize: 22, fontStyle: 'bold', originX: 0.5, depth: 0.8 },
     { kind: 'text', x: 694, y: 188, text: 'Escalier', color: '#194b55', fontSize: 18, originX: 0.5, depth: 0.8, backgroundColor: '#f8f2e6', paddingX: 8, paddingY: 4 },
     { kind: 'text', x: 580, y: 790, text: 'plan du hall', color: '#194b55', fontSize: 18, originX: 0.5, depth: 0.8 },
+    { kind: 'text', x: 1704, y: 554, text: 'Couloir C', color: '#194b55', fontSize: 18, fontStyle: 'bold', originX: 0.5, depth: 0.8, backgroundColor: '#f8f2e6', paddingX: 8, paddingY: 4 },
   ],
   colliders: [
     { x: 80, y: 80, width: 2040, height: 24, fillColor: 0x6c6f73, depth: 1, shadowColor: 0x10232a, shadowAlpha: 0.1 },
@@ -158,6 +159,7 @@ export const mission1Location: LocationDefinition = {
       showLabel: false,
       prompt: 'Entrer',
       accentColor: 0x7f5539,
+      reachZoneId: 'm1-zone-c4',
     },
     {
       id: 'm1-door-c6',

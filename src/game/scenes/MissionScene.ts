@@ -231,6 +231,26 @@ export class MissionScene extends Phaser.Scene {
   }
 
   private handleObjectInteraction(object: WorldObjectDefinition): void {
+    const currentObjective = getCurrentObjective(this.mission, this.runState);
+
+    if (
+      currentObjective?.kind === 'reach' &&
+      object.reachZoneId &&
+      currentObjective.targetId === object.reachZoneId
+    ) {
+      playUiTone(this, 'success');
+      this.completeCurrentObjective(false);
+      this.refreshHud();
+
+      if (isMissionComplete(this.mission, this.runState)) {
+        this.finishMission(true);
+        return;
+      }
+
+      this.objectiveToast.show('Objectif validé.', 'success');
+      return;
+    }
+
     if (object.requiredItemId && !hasItem(this.runState, object.requiredItemId)) {
       this.openInfoOverlay({
         title: object.label,
@@ -263,8 +283,6 @@ export class MissionScene extends Phaser.Scene {
     const interaction = getInteraction(object.interactionId);
 
     if (interaction.kind === 'info') {
-      const currentObjective = getCurrentObjective(this.mission, this.runState);
-
       if (currentObjective?.kind === 'reach' && currentObjective.targetId !== object.id && object.kind === 'door') {
         this.runState = registerNavigationMistake(this.runState, 4);
         this.refreshHud();

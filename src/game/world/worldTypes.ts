@@ -93,6 +93,7 @@ export type WorldObjectDefinition = {
   signageId?: string;
   rewardItemId?: string;
   requiredItemId?: string;
+  reachZoneId?: string;
   missingItemText?: string;
   consumeItemOnSuccess?: boolean;
   portalMissionId?: string;
