@@ -4,8 +4,8 @@ export const interactions: InteractionDefinition[] = [
   {
     id: 'hub-guide-info',
     kind: 'info',
-    title: 'M. Laurent',
-    speaker: 'M. Laurent',
+    title: 'Candice',
+    speaker: 'Candice',
     body: [
       "Bienvenue à ISPA. Aujourd'hui, tout s'enchaîne vite : affichage, secrétariat, bibliothèque, puis une urgence en ville.",
       'Dans le hall, chaque porte correspond à une mission. Le tableau au centre rappelle ton avancement.',
@@ -135,7 +135,7 @@ export const interactions: InteractionDefinition[] = [
     options: [
       {
         id: 'm1-confirm-corridor-correct',
-        text: 'Le couloir C est à droite. Ce sont les trois portes centrales, dans l’ordre C2, C4 puis C6 de gauche à droite.',
+        text: 'Le couloir C est à droite. Les cinq portes sont C2, C3, C4, C5 et C6 de gauche à droite. C4 est la troisième.',
         feedback: "Oui, c'est le bon repère pour chercher C4 sans te tromper de partie du couloir.",
         penaltySeconds: 0,
       },
@@ -155,7 +155,7 @@ export const interactions: InteractionDefinition[] = [
     correctOptionId: 'm1-confirm-corridor-correct',
     explanation: "Lire pour s'orienter, c'est retenir le détail pratique qui fait gagner du temps.",
     retryOnIncorrect: true,
-    successText: "Le plan confirme que tu dois entrer dans l'aile C et viser la porte centrale du couloir, dans la série C2, C4, C6.",
+    successText: "Le plan confirme que tu dois entrer dans l'aile C et viser la troisième porte de la série C2, C3, C4, C5, C6.",
     metadata: {
       cefr: 'B1',
       skillType: 'navigation',
@@ -171,7 +171,7 @@ export const interactions: InteractionDefinition[] = [
     title: 'Mauvaise salle',
     body: [
       "Ce n'est pas la bonne porte pour le groupe B1.",
-      "Reprends les indices : dans l'aile C, seules les trois portes centrales appartiennent au couloir. Elles sont C2, C4 puis C6 de gauche à droite. C4 est celle du milieu.",
+      "Reprends les indices : dans l'aile C, les portes vont de C2 à C6 de gauche à droite. C4 est la troisième porte.",
     ],
   },
   {

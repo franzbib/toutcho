@@ -39,7 +39,7 @@ export const mission1Location: LocationDefinition = {
     { kind: 'text', x: 846, y: 176, text: "Panneau d'aujourd'hui", color: '#194b55', fontSize: 22, fontStyle: 'bold', originX: 0.5, depth: 0.8 },
     { kind: 'text', x: 694, y: 188, text: 'Escalier', color: '#194b55', fontSize: 18, originX: 0.5, depth: 0.8, backgroundColor: '#f8f2e6', paddingX: 8, paddingY: 4 },
     { kind: 'text', x: 580, y: 790, text: 'plan du hall', color: '#194b55', fontSize: 18, originX: 0.5, depth: 0.8 },
-    { kind: 'text', x: 1704, y: 554, text: 'Couloir C', color: '#194b55', fontSize: 18, fontStyle: 'bold', originX: 0.5, depth: 0.8, backgroundColor: '#f8f2e6', paddingX: 8, paddingY: 4 },
+    { kind: 'text', x: 1620, y: 554, text: 'Couloir C', color: '#194b55', fontSize: 18, fontStyle: 'bold', originX: 0.5, depth: 0.8, backgroundColor: '#f8f2e6', paddingX: 8, paddingY: 4 },
   ],
   colliders: [
     { x: 80, y: 80, width: 2040, height: 24, fillColor: 0x6c6f73, depth: 1, shadowColor: 0x10232a, shadowAlpha: 0.1 },
@@ -123,9 +123,9 @@ export const mission1Location: LocationDefinition = {
       interactionId: 'm1-confirm-corridor',
     },
     {
-      id: 'm1-door-a3',
+      id: 'm1-door-c2',
       kind: 'door',
-      x: 1260,
+      x: 1300,
       y: 670,
       width: 88,
       height: 150,
@@ -136,9 +136,9 @@ export const mission1Location: LocationDefinition = {
       interactionId: 'm1-wrong-door-info',
     },
     {
-      id: 'm1-door-c2',
+      id: 'm1-door-c3',
       kind: 'door',
-      x: 1460,
+      x: 1450,
       y: 670,
       width: 88,
       height: 150,
@@ -151,7 +151,7 @@ export const mission1Location: LocationDefinition = {
     {
       id: 'm1-door-c4',
       kind: 'door',
-      x: 1660,
+      x: 1600,
       y: 670,
       width: 92,
       height: 150,
@@ -162,9 +162,9 @@ export const mission1Location: LocationDefinition = {
       reachZoneId: 'm1-zone-c4',
     },
     {
-      id: 'm1-door-c6',
+      id: 'm1-door-c5',
       kind: 'door',
-      x: 1860,
+      x: 1750,
       y: 670,
       width: 88,
       height: 150,
@@ -175,9 +175,9 @@ export const mission1Location: LocationDefinition = {
       interactionId: 'm1-wrong-door-info',
     },
     {
-      id: 'm1-door-b12',
+      id: 'm1-door-c6',
       kind: 'door',
-      x: 2020,
+      x: 1900,
       y: 670,
       width: 88,
       height: 150,
@@ -191,9 +191,9 @@ export const mission1Location: LocationDefinition = {
   reachZones: [
     {
       id: 'm1-zone-c4',
-      x: 1588,
+      x: 1522,
       y: 580,
-      width: 236,
+      width: 196,
       height: 256,
       label: 'Salle C4',
     },

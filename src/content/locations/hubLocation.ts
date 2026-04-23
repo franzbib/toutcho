@@ -37,7 +37,7 @@ export const hubLocation: LocationDefinition = {
       y: 530,
       width: 46,
       height: 54,
-      label: 'M. Laurent',
+      label: 'Candice',
       prompt: 'Parler',
       accentColor: 0xe07a5f,
       interactionId: 'hub-guide-info',
@@ -109,4 +109,3 @@ export const hubLocation: LocationDefinition = {
   ],
   reachZones: [],
 };
-

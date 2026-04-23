@@ -232,14 +232,24 @@ export class MissionScene extends Phaser.Scene {
 
   private handleObjectInteraction(object: WorldObjectDefinition): void {
     const currentObjective = getCurrentObjective(this.mission, this.runState);
+    const mission1DoorShortcut =
+      this.mission.id === 'hall-notice' &&
+      currentObjective?.id === 'confirm-corridor' &&
+      object.reachZoneId === 'm1-zone-c4';
 
     if (
-      currentObjective?.kind === 'reach' &&
-      object.reachZoneId &&
-      currentObjective.targetId === object.reachZoneId
+      (currentObjective?.kind === 'reach' &&
+        object.reachZoneId &&
+        currentObjective.targetId === object.reachZoneId) ||
+      mission1DoorShortcut
     ) {
       playUiTone(this, 'success');
-      this.completeCurrentObjective(false);
+      if (mission1DoorShortcut) {
+        this.runState = completeObjective(this.runState, 'confirm-corridor');
+        this.runState = completeObjective(this.runState, 'reach-classroom');
+      } else {
+        this.completeCurrentObjective(false);
+      }
       this.refreshHud();
 
       if (isMissionComplete(this.mission, this.runState)) {
