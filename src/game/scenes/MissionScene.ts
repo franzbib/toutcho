@@ -94,6 +94,8 @@ export class MissionScene extends Phaser.Scene {
     const rendered = renderLocation(this, this.location);
 
     this.objectViews = rendered.objectViews;
+    // Align arcade world bounds with the full mission map, not just the viewport size.
+    this.physics.world.setBounds(0, 0, this.location.width, this.location.height);
     this.player = new PlayerAvatar(this, this.location.playerSpawn.x, this.location.playerSpawn.y);
     this.player.bodyRect.setDepth(3);
     this.physics.add.collider(this.player.bodyRect, rendered.colliderGroup);
