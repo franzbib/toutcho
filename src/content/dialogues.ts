@@ -155,7 +155,7 @@ export const interactions: InteractionDefinition[] = [
     correctOptionId: 'm1-confirm-corridor-correct',
     explanation: "Lire pour s'orienter, c'est retenir le détail pratique qui fait gagner du temps.",
     retryOnIncorrect: true,
-    successText: "Le plan confirme que tu dois d'abord atteindre l'aile C, puis passer la porte vitrée pour trouver C4.",
+    successText: "Le plan confirme que tu dois d'abord entrer dans l'aile C, puis dépasser la porte vitrée pour trouver C4.",
     metadata: {
       cefr: 'B1',
       skillType: 'navigation',

@@ -36,16 +36,6 @@ export const signageEntries: SignageDefinition[] = [
     ],
   },
   {
-    id: 'm1-room-range-sign',
-    locationId: 'ispa-hall',
-    title: 'Repères du couloir C',
-    body: [
-      'Avant la porte vitrée : C1 à C3.',
-      'Après la porte vitrée : C4 à C6.',
-      'La salle C4 est donc dans la seconde partie du couloir.',
-    ],
-  },
-  {
     id: 'm2-direction-sign',
     locationId: 'secretariat-wing',
     title: 'Couloir administratif',

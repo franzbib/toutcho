@@ -439,6 +439,20 @@ export class MissionScene extends Phaser.Scene {
 
   private checkReachObjective(): void {
     const currentObjective = getCurrentObjective(this.mission, this.runState);
+    const mission1FinalZone = this.location.reachZones.find((candidate) => candidate.id === 'm1-zone-c4');
+
+    if (
+      this.mission.id === 'hall-notice' &&
+      currentObjective?.id === 'confirm-corridor' &&
+      mission1FinalZone &&
+      this.isPlayerInsideReachZone(mission1FinalZone)
+    ) {
+      this.runState = completeObjective(this.runState, 'confirm-corridor');
+      this.runState = completeObjective(this.runState, 'reach-classroom');
+      this.refreshHud();
+      this.finishMission(true);
+      return;
+    }
 
     if (currentObjective?.kind !== 'reach') {
       return;
@@ -450,9 +464,7 @@ export class MissionScene extends Phaser.Scene {
       return;
     }
 
-    const zoneRect = new Phaser.Geom.Rectangle(zone.x, zone.y, zone.width, zone.height);
-
-    if (zoneRect.contains(this.player.x, this.player.y)) {
+    if (this.isPlayerInsideReachZone(zone)) {
       this.completeCurrentObjective();
       this.refreshHud();
 
@@ -573,8 +585,8 @@ export class MissionScene extends Phaser.Scene {
       }
 
       return {
-        x: 1292,
-        y: 540,
+        x: 1206,
+        y: 590,
       };
     }
 
@@ -625,7 +637,12 @@ export class MissionScene extends Phaser.Scene {
   }
 
   private hasEnteredMission1SearchZone(): boolean {
-    return this.player.x >= 1210 && this.player.y <= 620;
+    return this.player.x >= 1160 && this.player.y >= 470 && this.player.y <= 790;
+  }
+
+  private isPlayerInsideReachZone(zone: { x: number; y: number; width: number; height: number }): boolean {
+    const zoneRect = new Phaser.Geom.Rectangle(zone.x, zone.y, zone.width, zone.height);
+    return zoneRect.contains(this.player.x, this.player.y);
   }
 
   private finishMission(success: boolean): void {
